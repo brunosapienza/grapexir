@@ -42,7 +42,9 @@ defmodule Grapexir.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.2"},
       {:swoosh, "~> 1.5"},
-      {:finch, "~> 0.13"}
+      {:finch, "~> 0.13"},
+      {:mox, "~> 1.0", only: :test},
+      {:dialyxir, "~> 1.3", only: [:dev], runtime: false} # Typespec Validation
     ]
   end
 
