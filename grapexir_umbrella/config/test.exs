@@ -21,7 +21,8 @@ config :grapexir_web, GrapexirWeb.Endpoint,
   server: false
 
 # Print only warnings and errors during test
-config :logger, level: :warning
+# config :logger, level: :warning
+config :logger, backends: [] # disable logging for tests so that failure scenarios don't spam stdout
 
 # In test we don't send emails
 config :grapexir, Grapexir.Mailer, adapter: Swoosh.Adapters.Test
