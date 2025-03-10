@@ -4,6 +4,8 @@ defmodule Grapexir.DataIngestion.ClimateClient do
   https://open-meteo.com/en/docs/climate-api
   """
 
+  require Logger
+
   @base_url "https://climate-api.open-meteo.com/v1/climate?"
   @models "CMCC_CM2_VHR4,FGOALS_f3_H,HiRAM_SIT_HR,MRI_AGCM3_2_S,EC_Earth3P_HR,MPI_ESM1_2_XR,NICAM16_8S"
 
@@ -57,7 +59,7 @@ defmodule Grapexir.DataIngestion.ClimateClient do
   end
 
   defp build_url(params) do
-    @base_url <>
+    url = @base_url <>
     URI.encode_query(%{
       latitude: params.latitude,
       longitude: params.longitude,
@@ -66,5 +68,9 @@ defmodule Grapexir.DataIngestion.ClimateClient do
       models: @models,
       daily: @daily
     })
+
+    Logger.info("Querying climate-api: #{url}")
+
+    url
   end
 end
