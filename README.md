@@ -1,6 +1,8 @@
 # Grapexir
 GrapeXir leverages historical climate data to provide actionable insights for winemakers, helping them identify the best regions and seasons for grape cultivation.
 
+Link to the Architectural Document: https://docs.google.com/document/d/1Pj4KqAb1hjZNZIRZdh6hcGFT1Ncd1GKHMwftL9DKKB0/edit?usp=sharing
+
 # Run the seed data to populate the regions in the Databse
 `mix run priv/repo/seeds.exs`
 
@@ -28,8 +30,9 @@ end
 
 ```
 # P.S This is a MVP version without a cron job running a daily worker to process all the regions
-regions = Repo.all(Grapexir.Region)
-Enum.each(fn region -> Worker.perform(%{args: %{"region_id" => region.id}}) end)
+iex -S mix
+regions = Grapexir.Repo.all(Grapexir.Region)
+Enum.each(regions, fn region -> Grapexir.DataIngestion.Worker.perform(%{args: %{"region_id" => region.id}}) end)
 ```
 
 
