@@ -46,7 +46,7 @@ defmodule Grapexir.DataIngestion.Service do
 
       # First recorded data is too recent, so fetch missing history
       # For instance, if we want 90 days of history and the first_recorded_data is from
-      # 30 days ago, we go 60 days ago from today, and not 90.
+      # 30 days ago, we go 60 days ago from first_recorded date.
       Date.compare(Date.add(today, -lookback_days), first_recorded_date) == :lt ->
         {Date.add(today, -(lookback_days - Date.diff(today, first_recorded_date))), today}
 
